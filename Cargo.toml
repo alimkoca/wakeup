@@ -1,0 +1,12 @@
+[package]
+name = "wakeup"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4"
+home = "0.5.3"
+unicode-segmentation = "1.9.0"
+soloud = "1.0.2"
