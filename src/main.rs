@@ -29,5 +29,5 @@ fn main() {
         }
     }
 
-    println!("anan: alarm went off");
+    println!("wakeup: alarm went off");
 }
