@@ -49,7 +49,7 @@ pub mod timer {
 
         let alarm_time = match time.alarm {
             Some(atime) => atime,
-            None => panic!("anan: error time is none!")
+            None => panic!("wakeup: error time is none!")
         };
 
         if alarm_time.hour() == hour && alarm_time.minute() == min {
