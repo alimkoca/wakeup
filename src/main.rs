@@ -1,18 +1,20 @@
 use std::env;
 use soloud::*;
-use wakeup::{timer, cache};
+use wakeup::{timer, log};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
 
     let alarm = timer::AlarmObject {
         alarm: timer::set_alarm(&args[1]), // Alarm is first argument 
-        cache: cache::create_cache(),
+        cache: log::create_log(),
         home: home::home_dir()
             .unwrap()
             .display()
             .to_string()
     };
+
+    log::write_log(&alarm);
 
     let sl = Soloud::default().unwrap();
     let mut wav = audio::Wav::default();

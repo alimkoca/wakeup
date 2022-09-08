@@ -59,3 +59,54 @@ pub mod timer {
         return false;
     }
 }
+
+pub mod log {
+    use home::home_dir;
+    use chrono::Timelike;
+    use std::fs::{File, OpenOptions};
+    use std::io::Write;
+    use crate::timer::AlarmObject;
+
+    fn is_exists(path: &String) -> bool {
+        std::fs::metadata(path).is_ok()
+    }
+
+    fn return_logfile() -> String {
+        let homeofuser: String = home_dir()
+            .unwrap()
+            .display()
+            .to_string();
+
+        return format!("{}/.wkuplog", homeofuser);
+    }
+
+    pub fn create_log() -> Option<std::fs::File> {
+        let log_home: String = return_logfile();
+
+        if is_exists(&log_home) {
+            return None;
+        }
+
+        let log_obj = File::create(log_home).unwrap();
+        return Some(log_obj);
+    }
+
+    pub fn write_log(time: &AlarmObject) {
+        let alarm_time = match time.alarm {
+            Some(atime) => atime,
+            None => panic!("wakeup: error time is none!")
+        };
+
+        let log_home: String = return_logfile();
+        let mut log_obj = OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(log_home)
+            .expect("Open error!");
+
+        let content_log: String = format!("Alarm set for {}:{}\n", alarm_time.hour(), alarm_time.minute());
+
+        log_obj.write(content_log.as_bytes())
+            .expect("Write error!");
+    }
+}
