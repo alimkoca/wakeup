@@ -6,13 +6,13 @@ pub mod timer {
     /*
      * AlarmObject:
      *      alarm: Naive Time with HH:MM format as Option
-     *      cache: Cache file for writing back
-     *      home: Home directory for keeping cache against
+     *      log: Log file for writing back
+     *      home: Home directory for keeping log against
      *      any damage or losing
      */
     pub struct AlarmObject {
         pub alarm: Option<NaiveTime>,
-        pub cache: Option<File>,
+        pub log: Option<File>,
         pub home: String
     }
 
