@@ -19,7 +19,7 @@ fn main() {
     let sl = Soloud::default().unwrap();
     let mut wav = audio::Wav::default();
 
-    wav.load(std::path::Path::new("/opt/alarm.mp3")).unwrap();
+    wav.load(std::path::Path::new(&args[2])).unwrap();
 
     loop {
         if timer::check_alarm(&alarm) {
