@@ -7,7 +7,7 @@ fn main() {
 
     let alarm = timer::AlarmObject {
         alarm: timer::set_alarm(&args[1]), // Alarm is first argument 
-        cache: log::create_log(),
+        log: log::create_log(),
         home: home::home_dir()
             .unwrap()
             .display()
