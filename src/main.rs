@@ -16,10 +16,12 @@ fn main() {
 
     log::write_log(&alarm);
 
-    let sl = Soloud::default().unwrap();
+    let sl = Soloud::default()
+        .expect("wakeup: couldn't load soloud");
     let mut wav = audio::Wav::default();
 
-    wav.load(std::path::Path::new(&args[2])).unwrap();
+    wav.load(std::path::Path::new(&args[2]))
+        .expect("wakeup: couldn't find sound file");
 
     loop {
         if timer::check_alarm(&alarm) {
