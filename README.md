@@ -13,7 +13,7 @@ $ # any wav file you can play.
 ```
 ### Note:
 If %HH:%MM is wrong or empty, it will
-be replaced time in `$HOME/.wkup_time` as
+be replaced with time in `$HOME/.wkup_time` as
 suitable with %HH:%MM time format.
 
 ### Example:
