@@ -3,10 +3,10 @@ use soloud::*;
 use wakeup::{timer, log};
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let mut args: Vec<String> = env::args().collect();
 
     let alarm = timer::AlarmObject {
-        alarm: timer::set_alarm(&args[1]), // Alarm is first argument 
+        alarm: timer::set_alarm(&mut args[1]), // Alarm is first argument 
         log: log::create_log(),
         home: home::home_dir()
             .unwrap()

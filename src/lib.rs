@@ -1,5 +1,6 @@
 pub mod timer {
     use std::fs::File;
+    use std::io::Read;
     use chrono::{Local, NaiveTime, DateTime, Timelike};
     use unicode_segmentation::UnicodeSegmentation;
 
@@ -19,10 +20,27 @@ pub mod timer {
     /* Set AlarmObject structure for keeping data
      * with more reliable solution
      */
-    pub fn set_alarm(time: &String) -> Option<NaiveTime> {
+    pub fn set_alarm(time: &mut String) -> Option<NaiveTime> {
+        if time.is_empty() {
+            *time = get_time_from();
+            assert_eq!(time.pop(), Some('\n'));
+            println!("Alarm set for: {time}");
+
+            if time.is_empty() {
+                println!("wakeup: wrong alarm format");
+                return None;
+            }
+        }
+
         if time.graphemes(true).count() != 5 {
-            println!("wakeup: wrong alarm format!");
-            return None;
+            *time = get_time_from();
+            assert_eq!(time.pop(), Some('\n'));
+            println!("Alarm set for: {time}");
+
+            if time.is_empty() {
+                println!("wakeup: wrong alarm format");
+                return None;
+            }
         }
 
         if time.chars().nth(2).unwrap() != ':' && time.chars().nth(2).unwrap() != '.' {
@@ -38,6 +56,19 @@ pub mod timer {
 
     pub fn getdaytime() -> DateTime<Local> {
         Local::now()
+    }
+
+    pub fn get_time_from() -> String {
+        let mut time_from = String::new();
+        let time_home_path = format!("{}/.wkup_time", home::home_dir()
+                                     .expect("wakeup: couldn't find your home directory")
+                                     .display());
+        File::open(time_home_path)
+            .expect("wakeup: couldn't create or find file")
+            .read_to_string(&mut time_from)
+            .expect("wakeup: couldn't read as string");
+
+        return time_from;
     }
 
     /* Check AlarmObject in structure, also can write back
