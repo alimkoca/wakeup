@@ -20,19 +20,20 @@ pub mod timer {
      * with more reliable solution
      */
     pub fn set_alarm(time: &String) -> Option<NaiveTime> {
-        if time.chars().nth(2).unwrap() != ':' && time.chars().nth(2).unwrap() != '.' {
-            println!("Wrong alarm format!");
-            return None;
-        }
-
         if time.graphemes(true).count() != 5 {
-            println!("Wrong alarm format!");
+            println!("wakeup: wrong alarm format!");
             return None;
         }
 
-        let time_dtf = NaiveTime::parse_from_str(time, "%H:%M");
+        if time.chars().nth(2).unwrap() != ':' && time.chars().nth(2).unwrap() != '.' {
+            println!("wakeup: wrong alarm format!");
+            return None;
+        }
 
-        return Some(time_dtf.unwrap());
+        let time_dtf = NaiveTime::parse_from_str(time, "%H:%M")
+            .expect("wakeup: couldn't parse time, wrong alarm format");
+
+        return Some(time_dtf);
     }
 
     pub fn getdaytime() -> DateTime<Local> {
@@ -87,7 +88,9 @@ pub mod log {
             return None;
         }
 
-        let log_obj = File::create(log_home).unwrap();
+        let log_obj = File::create(log_home)
+            .unwrap();
+
         return Some(log_obj);
     }
 
