@@ -11,12 +11,12 @@ $ # Note: %HH:%MM is Unix time format
 $ # and [MUSIC-PATH] is path to mp3 or
 $ # any wav file you can play.
 ```
-## Note:
-### If %HH:%MM is wrong or empty, it will
-### be replaced time in `$HOME/.wkup_time` as
-### suitable with %HH:%MM time format.
+### Note:
+If %HH:%MM is wrong or empty, it will
+be replaced time in `$HOME/.wkup_time` as
+suitable with %HH:%MM time format.
 
-## Example:
+### Example:
 ```
 [alimkoca@fedora src]$ cargo run 12:2 /opt/alarm.mp3
    Compiling wakeup v0.1.0 (/home/alimkoca/Yazılımlar/wakeup)
